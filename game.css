@@ -1,0 +1,10 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 500px;
+}
+
+#winScreen {
+    color: green;
+    font-size: 40px;
+}
