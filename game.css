@@ -8,3 +8,18 @@ table, th, td {
     color: green;
     font-size: 40px;
 }
+#enemyName {
+    color:black;
+    font-size: 30px;
+    line-height: 0px;
+    font-style: oblique;
+}
+#enemyDescription{
+    color:rgb(35, 35, 35);
+}
+#eneHP, #eneStr {
+    font-weight: bold;
+}
+#usrShield, #usrHP, #usrStr {
+    font-weight: bold;
+}

@@ -1,18 +1,27 @@
-//setting the starting values for game
-let usrHP = 2;
-let usrMaxHP =  10;
-let usrstartStr = 1;
-let usrStr = usrstartStr;
-let usrShield = 0;
+//TODO:
 
-let eneHP = 10;
-let eneMaxHP = 10;
-let enestartStr = 2;
-let eneStr = enestartStr;
-let damageType 
+// MAKE THE WIN SIGN ONLY COME UP AFTER ALL ENEMIES ARE DEFEATED
+// MAKE TOTAL OF 10 CARDS
+// MAKE TOTAL OF 3 ENEMYS
+// USE CSS TO MAKE BEAUTIFUL
+// MAKE CARDS GO TO DRAW PILE AS SOON AS YOU USE THEM
+
+
+
+
+
+
+//setting the starting values for game
+const user = {
+    HP: 10,
+    maxHP: 10,
+    startStr: 1,
+    str: 1,
+    shield: 0
+}
 
 //testing certain cards
-let drawCards = [5,1,1,1,2,2,3,4];
+let drawCards = [5,1,1,1,2,2,3,4,1];
 let discardCards = [];
 
 document.getElementById("draw").innerHTML = "Draw Pile: " + drawCards.length;
@@ -34,6 +43,7 @@ function start() {
     document.getElementById('slot2').style.backgroundColor = 'white';
     document.getElementById('slot3').style.backgroundColor = 'white';
     document.getElementById('slot4').style.backgroundColor = 'white';
+    drawEnemy();
     update()
 }
 function draw() {
@@ -53,6 +63,7 @@ function draw() {
     document.getElementById('slot2').style.backgroundColor = 'white';
     document.getElementById('slot3').style.backgroundColor = 'white';
     document.getElementById('slot4').style.backgroundColor = 'white';
+    enemy.ability();
     update()
 }
 function shuffle() {
@@ -77,117 +88,167 @@ function playCard(slotID,cardID){
     
 }
 function update() {
-    document.getElementById('usrHP').innerHTML = "User Hp: " + usrHP;
-    document.getElementById('usrStr').innerHTML = "User Strength: " + usrStr;
-    document.getElementById('eneHP').innerHTML = "Enemy Health: " + eneHP;
-    document.getElementById('eneStr').innerHTML = "Enemy Strength: " + eneStr;
-    document.getElementById('draw').innerHTML = "Draw Pile :" + drawCards.length;
-    document.getElementById('discard').innerHTML = "Discard Pile :" + discardCards.length;
+    document.getElementById('usrHP').innerHTML = "User Hp: " + user.HP;
+    document.getElementById('usrStr').innerHTML = "User Strength: " + user.str;
+    document.getElementById('eneHP').innerHTML = "Enemy Health: " + enemy.HP;
+    document.getElementById('eneStr').innerHTML = "Enemy Strength: " + enemy.str;
+    document.getElementById('draw').innerHTML = "Draw Pile: " + drawCards.length;
+    document.getElementById('discard').innerHTML = "Discard Pile: " + discardCards.length;
+    document.getElementById('usrShield').innerHTML = 'User Shield: ' + user.shield;
     showCard(card1ID,'slot1');
     showCard(card2ID,'slot2');
     showCard(card3ID,'slot3');
     showCard(card4ID,'slot4');
-    if (eneHP <= 0) {
+    if (enemy.HP <= 0) {
         document.getElementById('winScreen').innerHTML = "You Win!!";
     }
 }
 
 
-start();
 
 //figuring out how the cards work
 
 //ENEMYS
 eneList = [1]
-
-
-
-
-
-class Enemy {
-    constructor(name,description,ability) {
-        this.name = name;
-        this.description = description;
-        this.ability = ability
-    }
-    Ability(){
-        this.ability;
+let enemy = {
+    name: "Villian Didn't load",
+    description: "Shoots the user with an arrow with damage equal to his strength",
+    HP: 10,
+    maxHP: 10,
+    startStr: 2,
+    str: 2,
+    damageType: 'projectile',
+    ability: function() {
+        user.HP -= enemy.str;
     }
 }
-
-
-
-
-
-function card1() {
-    //homing misile, do one guarenteed damage on the enemy
-    eneHP -= 1;
-}
-function card2() {
-    //healing potion, heal two HP, max of max hp
-    if (usrHP <= usrMaxHP -2) {
-        usrHP += 2;
+function enemyAbility(enemyID) {
+    switch(enemyID) {
+        case 1:
+            enemy1.ability();
+            break;
     }
 }
-function card3() {
-    //punch, do the users strenth to enemy
-    eneHP -= usrStr;
+function drawEnemy() {
+    let enemyID = eneList[0];
+    eneList.shift();
+    switch(enemyID) {
+        case 1:
+            document.getElementById('enemyName').innerHTML = enemy1.name;
+            document.getElementById('enemyDescription').innerHTML = enemy1.description;
+            enemy = enemy1;
+            break;
+    }
 }
-function card4() {
-    //charged punch, gain one strength, do strength as damage then take one damage
-    usrStr++;
-    eneHP -= usrStr;
-    usrHP--;
+
+const enemy1 = {
+    name: "Simple Archer",
+    description: "Shoots the user with an arrow with damage equal to his strength",
+    HP: 10,
+    maxHP: 10,
+    startStr: 2,
+    str: 2,
+    damageType: 'projectile',
+    ability: function() {
+        user.HP -=  5 * enemy.str;
+    }
 }
+
+
+
+
+
+//BELOW ARE ALL OF THE CODE FOR THE CARDS TO WORK
+//FIRST TWO FUCTIONS MAKE THEM WORK BELOW ARE THE 
+//OBJECTS THAT ARE THE CARDS THEMSELVES
 
 
 
 function card(cardID) {
     switch(cardID) {
         case 1:
-            card1();
+            card1.ability();
             break;
         case 2:
-            card2();
+            card2.ability();
             break;
         case 3:
-            card3();
+            card3.ability();
             break;
         case 4:
-            card4();
+            card4.ability();
             break;
         case 5:
             card5.ability();
+            break;
     }
 }
-
 function showCard(cardID,slotID) {
     switch(cardID) {
         case 1:
-            document.getElementById(slotID).innerHTML = "Homming Missile: -1 enemy health";
+            document.getElementById(slotID).innerHTML = card1.description;
             break;
         case 2:
-            document.getElementById(slotID).innerHTML = "Healing Potion: +2 user health";
+            document.getElementById(slotID).innerHTML = card2.description;
             break;
         case 3:
-            document.getElementById(slotID).innerHTML = "Knuckle Sandwhich: Deal user Strength to enemy (" + usrStr + ")";
+            document.getElementById(slotID).innerHTML = card3.description;
             break;
         case 4:
-            document.getElementById(slotID).innerHTML = "Charged Punch: +1 Strength, then do strength as damage and -1 user HP";
+            document.getElementById(slotID).innerHTML = card4.description;
             break;
         case 5:
             document.getElementById(slotID).innerHTML = card5.description;
+            break;
     }
 }
-
+const card1 = {
+    name: "Homming Missile",
+    description: "Homming Missile: -1 enemy health, cannot miss",
+    ability: function() {
+        enemy.HP -= 1;
+    }
+}
+const card2 = {
+    name: "Healing Potion",
+    description: "Healing Potion: +2 user health",
+    ability: function() {
+        if (user.HP <= user.maxHP -2) {
+            user.HP += 2;
+        }
+        else if(user.HP <= user.maxHP -1) {
+            user.HP = user.maxHP;
+        }
+    }
+}
+const card3 = {
+    name: "Knuckle Sandwhich",
+    description: "Knuckle Sandwhich: Deal user Strength to enemy (" + user.str + ")",
+    ability: function() {
+        enemy.HP -= user.str;
+    }
+}
+const card4 = {
+    name: "Charged Punchh",
+    description: "Charged Punch: +1 Strength, then do strength as damage and -1 user HP",
+    ability: function() {
+        user.str++;
+        enemy.HP -= user.str;
+        user.HP--;
+    }
+}
 const card5 = {
     name: "Shield",
     description: "Shield: Gives user two shield and halves incomming projectile damage",
     id: 5,
     ability: function() {
-        usrShield == 2;
-        eneStr /= 2;
-        console.log('ability working');
+        user.shield += 2;
+        enemy.str /= 2;
     }
 }
-card5.ability();
+
+
+
+
+start();
+console.log(enemy.name);
