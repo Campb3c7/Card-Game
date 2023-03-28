@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Game</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+    <h1>Card Game</h1>
+    <p>This is a card game made by Colin Campbell</p>
+    <p id="winScreen"></p>
+    <p id="loseScreen"></p>
+    <p id="enemyName"></p>
+    <p id="enemyDescription"></p>
+    <p id="eneHP"></p>
+    <p id="eneStr"></p>
+    <p id="eneShield"></p>
+    <table>
+        <tr bgcolor = "grey">
+            <td id="discard" colspan="2.5">Discard Pile: 0</td>
+            <td id="draw" colspan="2.5">Script failed</td>
+        </tr>
+        <tr bgcolor = "white" id="slots">
+            <td  id="slot1" onclick="playCard('slot1',card1ID)">slot1</td>
+            <td  id="slot2" onclick="playCard('slot2',card2ID)">slot2</td>
+            <td  id="slot3" onclick="playCard('slot3',card3ID)">slot3</td>
+            <td  id="slot4" onclick="playCard('slot4',card4ID)">slot4</td>
+        </tr>
+    </table>
+    <br>
+    <button id="drawButton" onclick="draw()">Draw</button>
+    <p id="usrShield"></p>
+    <p id="usrHP"></p>
+    <p id="usrStr"></p>
+    <script src="game.js"></script>
+</body>
+</html>

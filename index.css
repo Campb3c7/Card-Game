@@ -1,0 +1,29 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 500px;
+}
+
+#winScreen {
+    color: green;
+    font-size: 40px;
+}
+#loseScreen {
+    color: rgb(128, 0, 0);
+    font-size: 40px;
+}
+#enemyName {
+    color:black;
+    font-size: 30px;
+    line-height: 0px;
+    font-style: oblique;
+}
+#enemyDescription{
+    color:rgb(35, 35, 35);
+}
+#eneHP, #eneStr, #eneShield {
+    font-weight: bold;
+}
+#usrShield, #usrHP, #usrStr {
+    font-weight: bold;
+}
